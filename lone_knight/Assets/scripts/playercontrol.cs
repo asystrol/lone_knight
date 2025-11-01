@@ -11,15 +11,16 @@ public class playercontrol : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
     {
-        if (controls.FindAction("Move").ReadValue<float>().x > 0)
+        if (controls.FindAction("Move").ReadValue<float>() > 0)
         {
             direction = 1;
         }
-        else if (controls.FindAction("Move").ReadValue<float>().x < 0)
+        else if (controls.FindAction("Move").ReadValue<float>() < 0)
         {
             direction = -1;
         }
@@ -27,7 +28,10 @@ public class playercontrol : MonoBehaviour
         {
             direction = 0;
         }
-        rb.linearVelocity.x = direction * speed;
+        Vector2 vel = rb.linearVelocity;
+        vel.x+= direction * speed * Time.deltaTime;
+        rb.linearVelocity = vel;
+
     }
 
 }
